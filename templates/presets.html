@@ -1,0 +1,38 @@
+{% extends 'layout.html'%}
+
+{% block title %}
+    Presets
+{% endblock title %}
+
+{% block content %}
+    <div class="text-center">
+        <h2 class="py-4"> Downloadable Presets </h2>
+    </div>
+
+      <div id="preset_chart" class="list-group text-center col-8 mx-auto">
+            <a href="" onclick="" class="list-group-item list-group-item-action">
+                iPhone's
+                <span class="badge badge-primary badge-pill ml-2">{{data[0]|length}}</span>
+            </a>
+
+            <a href="#" class="list-group-item list-group-item-action">iPad's
+                <span class="badge badge-primary badge-pill ml-2">{{data[1]|length}}</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">M1 Mac's
+                <span class="badge badge-primary badge-pill ml-2">{{data[2]|length}}</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">iPod's
+                <span class="badge badge-primary badge-pill ml-2">{{data[3]|length}}</span>
+            </a>
+
+      </div>
+
+
+
+{% endblock content %}
+
+{% block js %} 
+<script src="{{url_for('static', filename='js/jszip.js')}}"></script>
+<script src="{{ url_for('static', filename='js/FileSaver.js') }}"></script>
+<script src="{{ url_for('static', filename='js/presets.js') }}"></script>
+{% endblock js%}
