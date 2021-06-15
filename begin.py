@@ -3,7 +3,6 @@ import os
 import shutil
 import requests
 import json
-from tqdm import tqdm
 
 from flask import Flask, render_template, url_for
 
