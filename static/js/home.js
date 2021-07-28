@@ -3,10 +3,8 @@
 
 var ready2download = [];
 var toDownload = [];
-var lastSelectedRow;
 
 function clickFunction(e, data) {
-  lastSelected(e);
 
   if (e.className.includes("selected")) {
     e.style.backgroundColor = "";
@@ -24,25 +22,6 @@ function clickFunction(e, data) {
 
   toggle_download_button();
   toggle_clear_button();
-}
-
-// Shift Select
-function lastSelected(e) {
-  if (window.event.shiftKey && lastSelectedRow.parentNode == e.parentNode) {
-    console.log("shift");
-    var lastSelectedIndex = $("table tr").index(lastSelectedRow);
-    var currentIndex = $("table tr").index(e);
-
-    var rows = e.parentNode.getElementsByTagName("tr");
-
-    // rows.onclick.apply(rows[-1]);
-
-    console.log(Math.min(lastSelectedIndex, currentIndex));
-    console.log(Math.max(lastSelectedIndex, currentIndex));
-    lastSelectedRow = e;
-  } else {
-    lastSelectedRow = e;
-  }
 }
 
 // Selecting all in one column
