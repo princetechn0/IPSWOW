@@ -44,9 +44,12 @@ function toggle_download_button() {
 
 // Modding status of cookie preset button
 let preset_button = document.getElementById("preset-button");
-preset_button.addEventListener("click", displayPresetForm);
-
 let preset_form = document.getElementById("preset-form");
+let preset_name = document.getElementById("preset-name");
+let preset_add_button = document.getElementById("preset-add");
+
+preset_button.addEventListener("click", displayPresetForm);
+preset_add_button.addEventListener("click", savePreset);
 
 function displayPrompt() {
   // Modal Form
@@ -74,14 +77,10 @@ function displayPrompt() {
 function displayPresetForm() {
   preset_button.classList.add("d-none");
   preset_form.classList.remove("d-none");
+  preset_name.placeholder = "Preset Name";
 }
 
-// Preset + button
-let preset_add_button = document.getElementById("preset-add");
-preset_add_button.addEventListener("click", savePreset);
-
 // Preset input form
-let preset_name = document.getElementById("preset-name");
 preset_name.onkeydown = function (e) {
   if (window.event.keyCode == "13") {
     savePreset();
@@ -91,10 +90,10 @@ preset_name.onkeydown = function (e) {
 function savePreset() {
   // Save Cookie with name if no error
   if (preset_name.value.trim() == "") {
-    alert("Empty names are not allowed");
+    preset_name.placeholder = "Try again!";
   } else {
     createCookie(preset_name.value, JSON.stringify(ready2download), 365);
-    alert("Saved cookie with title: " + String(preset_name.value));
+    preset_name.placeholder = "Success!";
   }
 
   // Clear form input
