@@ -1,33 +1,86 @@
-console.dir(document.domain);
+let cleaned_list = getAllCookies();
 
-console.log(document.URL);
-console.log(document.title);
-document.title = "Hi";
+let text = "";
+if (cleaned_list) {
+  // Modding html with cookie name and length of the cookie list
+  let preset_chart = document.getElementById("preset_chart");
 
-// console.log(document.getElementById("list"));
+  for (let key in cleaned_list) {
+    var value = cleaned_list[key];
+    text += `
+         <a class="list-group-item list-group-item-action" onclick="clickFunction(this)" data-toggle="modal" data-target="#confirm-Modal" role="button" aria-disabled="true" >
+               ${key}
+             <span class="badge badge-primary badge-pill ml-2"> ${value.length} </span>
+         </a>
+       `;
+  }
+} else {
+  text += ` <h4> No presets saved... </h4> `;
+}
+preset_chart.innerHTML = text;
 
-// get by class name
-var chart_elements = document.getElementsByClassName("list-group-item");
+function getAllCookies() {
+  // Split cookie string and get all individual name=value pairs in an array
+  var cookieArr = document.cookie.split(";");
 
-// Selecting first element to bold
-// chart[0].style.fontWeight = "bold";
+  // Loop through the array elements
+  for (var i = 0; i < cookieArr.length; i++) {
+    var cookiePair = cookieArr[i].split("=");
+  }
 
-// // Changing all elements - normally
-// for (var i = 0; i < chart.length; i++) {
-//   chart[i].style.fontWeight = "bold";
-// }
+  let cleaned_list = {};
+  if (document.cookie != "") {
+    for (let i of cookieArr) {
+      let temp = i.split("=");
+      let list_of_devices = JSON.parse(temp[1]);
 
-// for each - easier
-for (let i of chart_elements) {
-  i.style.fontWeight = "bold";
+      cleaned_list[temp[0].trim()] = list_of_devices;
+    }
+    return cleaned_list;
+  }
 }
 
-var ch = document.querySelector(".list-group");
+//Triggering download on click
+function initDownload() {
+  let array_copy = [...cleaned_list[target]];
+  let interval = setInterval(download, 1500, array_copy);
 
-console.log(ch.children);
+  function download(urls) {
+    let url = urls.pop();
 
-// Dynamically adding element
-var newButton = document.createElement("div");
-newButton.className = "download";
+    let a = document.createElement("a");
+    dl_text = url[0] + "_" + url[2] + "_Restore.ipsw";
+    a.download = dl_text;
+    console.log(dl_text);
+    a.setAttribute("href", url[1]);
+    a.setAttribute("target", "_parent");
+    a.click();
 
-console.log(newButton);
+    if (urls.length == 0) {
+      clearInterval(interval);
+    }
+  }
+}
+
+// clicking desired preset
+function clickFunction(e) {
+  let text = "";
+
+  // getting the name of the cookie from inner text
+  target = e.text.split("\n")[1].trim();
+  console.log("the cleaned target name is", target);
+  console.log(cleaned_list[target]);
+
+  // Displaying modal with Name of item
+  let count = 0;
+  for (let i of cleaned_list[target]) {
+    text += `  <tr>
+       <th scope="row"> ${count + 1}</th>
+       <td>${i[0]}</td>
+       <td>${i[2]}</td>
+     </tr>`;
+    count++;
+  }
+  let modal_body = document.getElementById("modal-table-body");
+  modal_body.innerHTML = text;
+}

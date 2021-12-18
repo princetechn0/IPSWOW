@@ -48,6 +48,11 @@ def home():
     return render_template('home.html', data=[device_types, all_iPhones, all_iPads, all_macs, all_ipods])
 
 
+@ app.route("/presets")
+def presets():
+    return render_template('presets.html',  data=[device_types, all_iPhones, all_iPads, all_macs, all_ipods])
+
+
 @ app.route("/about")
 def about():
     return render_template('about.html')
