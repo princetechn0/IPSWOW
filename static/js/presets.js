@@ -1,43 +1,49 @@
-let cleaned_list = getAllCookies();
+drawChart();
 
-let text = "";
-if (cleaned_list) {
-  // Modding html with cookie name and length of the cookie list
-  let preset_chart = document.getElementById("preset_chart");
+function drawChart() {
+  cleaned_list = getAllCookies();
+  let text = "";
+  if (cleaned_list) {
+    // Modding html with cookie name and length of the cookie list
+    let preset_chart = document.getElementById("preset_chart");
 
-  for (let key in cleaned_list) {
-    var value = cleaned_list[key];
-    text += `
-         <a class="list-group-item list-group-item-action" onclick="clickFunction(this)" data-toggle="modal" data-target="#confirm-Modal" role="button" aria-disabled="true" >
-               ${key}
-             <span class="badge badge-primary badge-pill ml-2"> ${value.length} </span>
-         </a>
-       `;
-  }
-} else {
-  text += ` <h4> No presets saved... </h4> `;
-}
-preset_chart.innerHTML = text;
+    for (let key in cleaned_list) {
+      var value = cleaned_list[key];
 
-function getAllCookies() {
-  // Split cookie string and get all individual name=value pairs in an array
-  var cookieArr = document.cookie.split(";");
-
-  // Loop through the array elements
-  for (var i = 0; i < cookieArr.length; i++) {
-    var cookiePair = cookieArr[i].split("=");
-  }
-
-  let cleaned_list = {};
-  if (document.cookie != "") {
-    for (let i of cookieArr) {
-      let temp = i.split("=");
-      let list_of_devices = JSON.parse(temp[1]);
-
-      cleaned_list[temp[0].trim()] = list_of_devices;
+      text += `
+           <a class="list-group-item list-group-item-action" onclick="clickFunction(this)" data-toggle="modal" data-target="#confirm-Modal" role="button" aria-disabled="true" >
+                 ${key}
+               <span class="badge badge-primary badge-pill ml-2"> ${value.length} </span>
+           </a>
+         `;
     }
-    return cleaned_list;
+  } else {
+    text += ` <h4> No presets saved... </h4> `;
   }
+  preset_chart.innerHTML = text;
+}
+
+// clicking desired preset
+function clickFunction(e) {
+  let text = "";
+
+  // getting the name of the cookie from inner text
+  target = e.text.split("\n")[1].trim();
+  console.log("the cleaned target name is", target);
+  console.log(cleaned_list[target]);
+
+  // Displaying modal with Name of item
+  let count = 0;
+  for (let i of cleaned_list[target]) {
+    text += `  <tr>
+       <th scope="row"> ${count + 1}</th>
+       <td>${i[0]}</td>
+       <td>${i[2]}</td>
+     </tr>`;
+    count++;
+  }
+  let modal_body = document.getElementById("modal-table-body");
+  modal_body.innerHTML = text;
 }
 
 //Triggering download on click
@@ -62,25 +68,30 @@ function initDownload() {
   }
 }
 
-// clicking desired preset
-function clickFunction(e) {
-  let text = "";
+function deleteCookie() {
+  document.cookie =
+    target + "=;" + "expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  drawChart();
+}
 
-  // getting the name of the cookie from inner text
-  target = e.text.split("\n")[1].trim();
-  console.log("the cleaned target name is", target);
-  console.log(cleaned_list[target]);
+// called at start
+function getAllCookies() {
+  // Split cookie string and get all individual name=value pairs in an array
+  var cookieArr = document.cookie.split(";");
 
-  // Displaying modal with Name of item
-  let count = 0;
-  for (let i of cleaned_list[target]) {
-    text += `  <tr>
-       <th scope="row"> ${count + 1}</th>
-       <td>${i[0]}</td>
-       <td>${i[2]}</td>
-     </tr>`;
-    count++;
+  // Loop through the array elements
+  for (var i = 0; i < cookieArr.length; i++) {
+    var cookiePair = cookieArr[i].split("=");
   }
-  let modal_body = document.getElementById("modal-table-body");
-  modal_body.innerHTML = text;
+
+  let cleaned_list = {};
+  if (document.cookie != "") {
+    for (let i of cookieArr) {
+      let temp = i.split("=");
+      let list_of_devices = JSON.parse(temp[1]);
+
+      cleaned_list[temp[0].trim()] = list_of_devices;
+    }
+    return cleaned_list;
+  }
 }

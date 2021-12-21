@@ -17,7 +17,7 @@
           </main>
     </div>
 
-      <div id="preset_chart" class="list-group text-center col-8 mx-auto"></div>
+      <div id="preset_chart" class="list-group text-center col-sm-8 col-10 mx-auto"></div>
 
       <div class="modal fade" id="confirm-Modal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -43,7 +43,7 @@
                 </table>
             </div>
             <div class="modal-footer" id = "modal-table-footer">
-
+                <button type="button" class="btn btn-danger mr-auto" data-dismiss="modal" onclick="deleteCookie()">Delete Preset</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="initDownload()">Download!</button>
             </div>

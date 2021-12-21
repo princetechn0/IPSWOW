@@ -77,7 +77,7 @@ function displayPrompt() {
 function displayPresetForm() {
   preset_button.classList.add("d-none");
   preset_form.classList.remove("d-none");
-  preset_name.placeholder = "Preset Name";
+  resetPlaceHolder();
 }
 
 // Preset input form
@@ -89,15 +89,25 @@ preset_name.onkeydown = function (e) {
 
 function savePreset() {
   // Save Cookie with name if no error
+  resetPlaceHolder();
   if (preset_name.value.trim() == "") {
+    preset_name.classList.add("preset-warning");
     preset_name.placeholder = "Try again!";
   } else {
     createCookie(preset_name.value, JSON.stringify(ready2download), 365);
+    preset_name.classList.add("preset-success");
     preset_name.placeholder = "Success!";
   }
 
   // Clear form input
   preset_name.value = "";
+}
+
+// Place Holder colors
+function resetPlaceHolder() {
+  preset_name.classList.remove("preset-success");
+  preset_name.classList.remove("preset-warning");
+  preset_name.placeholder = "Preset Name";
 }
 
 function createCookie(name, value, days) {

@@ -24,6 +24,13 @@
   width: 80%;
 }
 
+.preset-success::-webkit-input-placeholder {
+  color: #22bb33;
+}
+.preset-warning::-webkit-input-placeholder {
+  color: #bb2124;
+}
+
 @media screen and (min-width: 0px) and (max-width: 1211px) {
   /*Style*/
   .about-why-jumbo {
