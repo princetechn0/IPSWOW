@@ -50,7 +50,7 @@ def home():
 
 @ app.route("/presets")
 def presets():
-    return render_template('presets.html',  data=[device_types, all_iPhones, all_iPads, all_macs, all_ipods])
+    return render_template('presets.html')
 
 
 @ app.route("/about")

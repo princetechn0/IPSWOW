@@ -110,6 +110,24 @@
         </div> 
     </div>
 
+            <!-- Intro Modal -->
+            <div id="intro-Modal" class="modal fade">
+                <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <img class="img-fluid" src="/static/images/all_iphones.png">
+                        </div>
+                        <div class="modal-body text-center">
+                            <h4>Welcome to IPSWow</h4>	
+                            <p>Download firmware, make presets, or just look around!</p>
+                            <button class="btn btn-danger" data-dismiss="modal">Let's Go!</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+</div> 
+
 
     <div class="text-center"> 
         <p class="pt-3 "> Check the <a href="/about"> About Page </a> for help!</p>
@@ -117,14 +135,10 @@
 
 
 
-
-        
-
-          
-
 {% endblock content %}
 
 {% block js %} 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 {% endblock js%}
 

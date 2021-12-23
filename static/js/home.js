@@ -1,5 +1,10 @@
-// Select all body cells and assign a click action detector to all
-// Highlight selected elements and change their class value
+// Called if first time launching site
+$(document).ready(function () {
+  if (!document.cookie.startsWith("visited")) {
+    createCookie("visited", true, 1000);
+    $("#intro-Modal").modal("show");
+  }
+});
 
 let ready2download = [];
 
@@ -88,9 +93,13 @@ preset_name.onkeydown = function (e) {
 };
 
 function savePreset() {
-  // Save Cookie with name if no error
+  // Save Cookie if name not empty or contains "="
   resetPlaceHolder();
-  if (preset_name.value.trim() == "") {
+  if (
+    preset_name.value.trim() == "" ||
+    preset_name.value.includes("=") ||
+    preset_name.value == "visited"
+  ) {
     preset_name.classList.add("preset-warning");
     preset_name.placeholder = "Try again!";
   } else {
