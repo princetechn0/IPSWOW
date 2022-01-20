@@ -1,4 +1,5 @@
 {% extends 'layout.html'%}
+
 {% block title %}
     IPSW Downloader
 {% endblock title %}
@@ -30,7 +31,7 @@
 
 
                         <tbody id = "table-body-{{device_type}}">
-                            <!-- {% if "iOS" in device_type %}  -->
+                            {% if "iOS" in device_type %} 
                             <!-- iPhones -->
                                 {% for device in data[1][::-1] %}
                                     <tr onclick="clickFunction(this, {{device}})">
@@ -38,14 +39,15 @@
                                         <td> {{device.0.1}}</td>
                                     </tr>
                                 {% endfor %}
-                            <!-- {% elif "iPadOS" in device_type %} -->
+                            {% elif "iPadOS" in device_type %}
                             <!-- iPads -->
                                 {% for device in data[2][::-1]|list %}
                                 <tr onclick="clickFunction(this, {{device}})">
                                         <td> {{device.0.0}} </td>
+                                        <td> {{device.0.1}}</td>
                                     </tr>
                                 {% endfor %}
-                            <!-- {% elif "Mac" in device_type%} -->
+                            {% elif "Mac" in device_type%}
                             <!-- Macs and iPods -->
                                 {% for device in data[3][::-1] %}
                                 <tr onclick="clickFunction(this, {{device}})">
@@ -58,7 +60,7 @@
                                         <td> {{device.0.1}}</td>
                                     </tr>
                                 {% endfor %}
-                            <!-- {% endif %} -->
+                            {% endif %}
                         </tbody>
                     </table>
                 </div>
@@ -138,7 +140,6 @@
 {% endblock content %}
 
 {% block js %} 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 {% endblock js%}
 

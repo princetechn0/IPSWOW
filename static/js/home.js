@@ -27,11 +27,13 @@ function clickFunction(e, data) {
   toggle_clear_button();
 }
 
-// Selecting all in one column
+// Selecting all in one column - Incomplete
 function selectAll(e) {
   let allChildren = e.parentNode.getElementsByTagName("tbody")[0].rows;
   for (let i of allChildren) {
-    i.onclick.apply(i);
+    if (!i.className.includes("selected")) {
+      i.onclick.apply(i);
+    }
   }
 }
 
