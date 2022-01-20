@@ -105,7 +105,7 @@ function savePreset() {
     preset_name.classList.add("preset-warning");
     preset_name.placeholder = "Try again!";
   } else {
-    createCookie(preset_name.value, JSON.stringify(ready2download), 365);
+    createLocalStorage(preset_name.value, JSON.stringify(ready2download));
     preset_name.classList.add("preset-success");
     preset_name.placeholder = "Success!";
   }
@@ -132,6 +132,12 @@ function createCookie(name, value, days) {
   }
   document.cookie =
     name.replace(/\s/g, "_") + "=" + value + expires + "; path=/";
+}
+
+function createLocalStorage(name, value, days) {
+  localStorage.setItem(name.replace(/\s/g, "_"), value);
+  // document.cookie =
+  // name.replace(/\s/g, "_") + "=" + value + expires + "; path=/";
 }
 
 //Triggering download on click

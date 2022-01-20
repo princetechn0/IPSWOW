@@ -1,29 +1,23 @@
 // called at start
-function getAllCookies() {
-  // Split cookie string and get all individual name=value pairs in an array
-  var cookieArr = document.cookie.split(";");
-
-  // Loop through the array elements
-  for (var i = 0; i < cookieArr.length; i++) {
-    var cookiePair = cookieArr[i].split("=");
-  }
+function getLocalStorage() {
+  // Split local storage and get all individual name=value pairs in an array
+  var deviceArr = Object.keys(localStorage);
 
   let cleaned_list = {};
-  if (document.cookie != "") {
-    for (let i of cookieArr) {
-      let temp = i.split("=");
-      let list_of_devices = JSON.parse(temp[1]);
-      cleaned_list[temp[0].trim()] = list_of_devices;
-    }
-    delete cleaned_list["visited"];
-    return cleaned_list;
+  for (let i of deviceArr) {
+    let temp = localStorage.getItem(i).split("=");
+    let list_of_devices = JSON.parse(temp[0]);
+
+    cleaned_list[i.trim()] = list_of_devices;
   }
+  console.log(cleaned_list);
+  return cleaned_list;
 }
 
 drawChart();
 
 function drawChart() {
-  cleaned_list = getAllCookies();
+  cleaned_list = getLocalStorage();
   let text = "";
   if (Object.keys(cleaned_list).length !== 0) {
     // Modding html with cookie name and length of the cookie list
@@ -91,7 +85,6 @@ function initDownload() {
 }
 
 function deleteCookie() {
-  document.cookie =
-    target + "=;" + "expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  localStorage.removeItem(target);
   drawChart();
 }
