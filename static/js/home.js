@@ -4,13 +4,9 @@ $(document).ready(function () {
     createCookie("visited", true, 1000);
     $("#intro-Modal").modal("show");
   }
-
-  alert("testing");
 });
 
 let ready2download = [];
-
-//testing this feature
 
 function clickFunction(e, data) {
   if (e.className.includes("selected")) {
@@ -109,7 +105,8 @@ function savePreset() {
     preset_name.classList.add("preset-warning");
     preset_name.placeholder = "Try again!";
   } else {
-    createCookie(preset_name.value, JSON.stringify(ready2download), 365);
+    // createCookie(preset_name.value, JSON.stringify(ready2download), 365);
+    createLocalStorage(preset_name.value, JSON.stringify(ready2download));
     preset_name.classList.add("preset-success");
     preset_name.placeholder = "Success!";
   }
@@ -125,17 +122,23 @@ function resetPlaceHolder() {
   preset_name.placeholder = "Preset Name";
 }
 
-function createCookie(name, value, days) {
-  var expires;
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = "; expires=" + date.toGMTString();
-  } else {
-    expires = "";
-  }
-  document.cookie =
-    name.replace(/\s/g, "_") + "=" + value + expires + "; path=/";
+// function createCookie(name, value, days) {
+//   var expires;
+//   if (days) {
+//     var date = new Date();
+//     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+//     expires = "; expires=" + date.toGMTString();
+//   } else {
+//     expires = "";
+//   }
+//   document.cookie =
+//     name.replace(/\s/g, "_") + "=" + value + expires + "; path=/";
+// }
+
+function createLocalStorage(name, value, days) {
+  localStorage.setItem(name.replace(/\s/g, "_"), value);
+  // document.cookie =
+  // name.replace(/\s/g, "_") + "=" + value + expires + "; path=/";
 }
 
 //Triggering download on click
