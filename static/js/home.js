@@ -134,10 +134,8 @@ function createCookie(name, value, days) {
     name.replace(/\s/g, "_") + "=" + value + expires + "; path=/";
 }
 
-function createLocalStorage(name, value, days) {
+function createLocalStorage(name, value) {
   localStorage.setItem(name.replace(/\s/g, "_"), value);
-  // document.cookie =
-  // name.replace(/\s/g, "_") + "=" + value + expires + "; path=/";
 }
 
 //Triggering download on click
