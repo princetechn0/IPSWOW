@@ -4,13 +4,9 @@ $(document).ready(function () {
     createCookie("visited", true, 1000);
     $("#intro-Modal").modal("show");
   }
-
-  alert("testing");
 });
 
 let ready2download = [];
-
-//testing this feature
 
 function clickFunction(e, data) {
   if (e.className.includes("selected")) {
