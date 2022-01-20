@@ -8,6 +8,8 @@ $(document).ready(function () {
 
 let ready2download = [];
 
+//testing this feature
+
 function clickFunction(e, data) {
   if (e.className.includes("selected")) {
     e.style.backgroundColor = "";
