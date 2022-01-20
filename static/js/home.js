@@ -4,6 +4,8 @@ $(document).ready(function () {
     createCookie("visited", true, 1000);
     $("#intro-Modal").modal("show");
   }
+
+  alert("testing");
 });
 
 let ready2download = [];
