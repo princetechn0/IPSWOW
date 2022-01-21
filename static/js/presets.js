@@ -13,7 +13,7 @@ function getLocalStorage() {
       cleaned_list[i.trim()] = list_of_devices;
     }
   }
-  console.log(cleaned_list);
+  // console.log(cleaned_list);
   return cleaned_list;
 }
 
