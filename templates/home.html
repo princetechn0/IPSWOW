@@ -32,15 +32,22 @@
 
                         <tbody id = "table-body-{{device_type}}">
                             {% if "iOS" in device_type %} 
-                            <!-- iPhones -->
+                                <!-- iPhones -->
                                 {% for device in data[1][::-1] %}
                                     <tr onclick="clickFunction(this, {{device}})">
                                         <td>{{device.0.0}} </td>
                                         <td> {{device.0.1}}</td>
                                     </tr>
                                 {% endfor %}
+                                <!-- iPods -->
+                                {% for device in data[4][::-1] %}
+                                <tr onclick="clickFunction(this, {{device}})">
+                                        <td> {{device.0.0}}</td>
+                                        <td> {{device.0.1}}</td>
+                                    </tr>
+                                {% endfor %}
                             {% elif "iPadOS" in device_type %}
-                            <!-- iPads -->
+                                <!-- iPads -->
                                 {% for device in data[2][::-1]|list %}
                                 <tr onclick="clickFunction(this, {{device}})">
                                         <td> {{device.0.0}} </td>
@@ -48,13 +55,13 @@
                                     </tr>
                                 {% endfor %}
                             {% elif "Mac" in device_type%}
-                            <!-- Macs and iPods -->
+                                <!-- Macs and Apple Watch -->
                                 {% for device in data[3][::-1] %}
                                 <tr onclick="clickFunction(this, {{device}})">
                                         <td colspan="2"> {{device.0.0}}</td>
                                     </tr>
                                 {% endfor %}
-                                {% for device in data[4][::-1] %}
+                                {% for device in data[5][::-1] %}
                                 <tr onclick="clickFunction(this, {{device}})">
                                         <td> {{device.0.0}}</td>
                                         <td> {{device.0.1}}</td>
