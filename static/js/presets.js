@@ -1,14 +1,17 @@
 // called at start
 function getLocalStorage() {
   // Split local storage and get all individual name=value pairs in an array
-  var deviceArr = Object.keys(localStorage);
+  let deviceArr = Object.keys(localStorage);
 
   let cleaned_list = {};
   for (let i of deviceArr) {
     let temp = localStorage.getItem(i).split("=");
     let list_of_devices = JSON.parse(temp[0]);
 
-    cleaned_list[i.trim()] = list_of_devices;
+    // Code to deal with Browser Extensions injecting JS
+    if (Object.prototype.toString.call(list_of_devices) == "[object Array]") {
+      cleaned_list[i.trim()] = list_of_devices;
+    }
   }
   console.log(cleaned_list);
   return cleaned_list;
