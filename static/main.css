@@ -1,12 +1,3 @@
-.my-custom-scrollbar {
-  position: relative;
-  height: 500px;
-  overflow: auto;
-}
-.table-wrapper-scroll-y {
-  display: block;
-}
-
 .home-jumbo {
   color: #5056d3;
   padding-top: 20px !important;
@@ -88,4 +79,14 @@
 .trigger-btn {
   display: inline-block;
   margin: 100px auto;
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 475px;
+  height: 60vh;
+  overflow: auto;
+}
+
+.my-custom-button {
 }
