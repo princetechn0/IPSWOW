@@ -16,7 +16,7 @@
             <div class="form-inline"> 
                 <div class="row shadow-lg p-3 rounded-lg">
                     {% for device_type in data[0] %}
-                        <div class="my-custom-scrollbar col-md-4 ">
+                        <div class="my-custom-scrollbar col-md-4">
                             <table class="table table-bordered table-striped mb-0" id = "table-{{device_type}}">
                                 <thead onclick="selectAll(this)" id = "table-header-{{device_type}}" class="text-center">
                                     <tr>
@@ -32,7 +32,7 @@
                                             <tr onclick="clickFunction(this, {{device}})">
                                                 <td>{{device.0.0}} </td>
                                                 <!-- <td> {{device.0.1}}</td> -->
-                                                <td> {{device.2}}</td>
+                                                <td class=""> {{device.2}}</td>
                                             </tr>
                                         {% endfor %}
                                         <!-- iPods -->

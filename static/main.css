@@ -83,10 +83,20 @@
 
 .my-custom-scrollbar {
   position: relative;
-  height: 475px;
-  height: 60vh;
+  /* height: 475px; */
+  height: 65vh;
   overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
-.my-custom-button {
+.my-custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  /* table td:nth-child(2) {
+    border-spacing: 0;
+    display: none;
+  } */
 }

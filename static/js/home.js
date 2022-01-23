@@ -27,14 +27,28 @@ function clickFunction(e, data) {
   toggle_clear_button();
 }
 
-// Selecting all in one column - Incomplete
+// Selecting all in one column
 function selectAll(e) {
   let allChildren = e.parentNode.getElementsByTagName("tbody")[0].rows;
-  for (let i of allChildren) {
-    if (!i.className.includes("selected")) {
+  if (isAlreadySelected(allChildren)) {
+    for (let i of allChildren) {
       i.onclick.apply(i);
     }
+  } else {
+    for (let i of allChildren) {
+      if (!i.className.includes("selected")) {
+        i.onclick.apply(i);
+      }
+    }
   }
+}
+function isAlreadySelected(allChildren) {
+  for (let i of allChildren) {
+    if (!i.className.includes("selected")) {
+      return false;
+    }
+  }
+  return true;
 }
 
 // Modding status of download button
