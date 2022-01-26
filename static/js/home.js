@@ -1,16 +1,11 @@
 // Called if first time launching site
 $(document).ready(function () {
-  if (!document.cookie.startsWith("visited")) {
-    createCookie("visited", true, 1000);
-    $("#intro-Modal").modal("show");
-  }
+  displayIntroModal();
 });
 
 let ready2download = [];
-
 function clickFunction(e, data) {
   if (e.className.includes("selected")) {
-    e.style.backgroundColor = "";
     e.classList.remove("selected");
 
     // Filters out the un-selected element from the array
@@ -18,7 +13,6 @@ function clickFunction(e, data) {
       return !~el.indexOf(data[1]);
     });
   } else {
-    e.style.backgroundColor = "#E0BBE4";
     e.classList.add("selected");
     ready2download.push([data[0][0], data[1], data[2]]);
   }
@@ -193,9 +187,15 @@ function clrAll() {
 
   let table = document.querySelectorAll("tr");
   table.forEach(function (e) {
-    e.style.backgroundColor = "";
     e.classList.remove("selected");
   });
+}
+
+function displayIntroModal() {
+  if (!document.cookie.startsWith("visited")) {
+    createCookie("visited", true, 1000);
+    $("#intro-Modal").modal("show");
+  }
 }
 
 // disable text selection on page

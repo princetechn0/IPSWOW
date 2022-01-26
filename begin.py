@@ -15,7 +15,7 @@ all_devices_api = requests.get("https://api.ipsw.me/v4/devices").json()
 # print(json.dumps(j, sort_keys=True, indent=4))
 
 
-device_types = ["iOS", "iPadOS", "M1 Macs / Apple Watch"]
+device_types = ["iOS", "iPadOS", "MacOS / WatchOS"]
 
 all_devices = [[x['name'], x['identifier']]
                for x in all_devices_api if "iBridge" not in x['name'] and "Developer Transition Kit" not in x["name"]]
@@ -44,11 +44,18 @@ all_ipods = [[x, requests.get(
 all_watches = [[x, requests.get("https://api.ipsw.me/v4/device/{}?type=ota".format(x[1])).json()['firmwares'][0]['url'], requests.get(
     "https://api.ipsw.me/v4/device/{}?type=ota".format(x[1])).json()['firmwares'][0]['version']] for x in all_devices if "Watch" in x[0]]
 
+latest_firmwares = {
+    "iOS": all_iPhones[-1][2],
+    "iPadOS": all_iPads[-1][2],
+    "MacOS": all_macs[-1][2],
+    "WatchOS": all_watches[-1][2],
+}
+
 
 @ app.route("/")
 @ app.route("/home")
 def home():
-    return render_template('home.html', data=[device_types, all_iPhones, all_iPads, all_macs, all_ipods, all_watches])
+    return render_template('home.html', data=[device_types, all_iPhones, all_iPads, all_macs, all_ipods, all_watches, latest_firmwares])
 
 
 @ app.route("/presets")

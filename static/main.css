@@ -94,6 +94,21 @@
   display: none;
 }
 
+/* Table Styles */
+
+.table tbody td:nth-child(2) {
+  background-color: white;
+  text-align: center;
+}
+
+.selected td:nth-child(1) {
+  background-color: #e0bbe4 !important;
+}
+
+.latest-firmware {
+  background-color: #50c878bf !important;
+}
+
 @media screen and (max-width: 800px) {
   /* table td:nth-child(2) {
     border-spacing: 0;
