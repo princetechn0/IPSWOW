@@ -30,7 +30,9 @@
                                         <!-- iPhones -->
                                         {% for device in data[1][::-1] %}
                                             <tr onclick="clickFunction(this, {{device}})">
-                                                <td>{{device.0.0}} </td>
+                                                {%autoescape false%}
+                                                    <td>{{device.1 | replace("/", "<br/>")}}</td>
+                                                {% endautoescape %}
                                                 <!-- <td> {{device.0.1}}</td> -->
                                                 <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.2 in data[6]['iOS'] }}"> {{device.2}}</td>
                                             </tr>
@@ -42,14 +44,17 @@
                                                 <!-- <td> {{device.0.1}}</td> -->
                                                 <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.2 in data[6]['iOS'] }}"> {{device.2}}</td>
                                             </tr>
-                                        {% endfor %}
+                                        {% endfor %}    
                                     {% elif "iPadOS" in device_type %}
                                         <!-- iPads -->
-                                        {% for device in data[2][::-1]|list %}
+                                        {% for device in data[2][::-1] %}
                                             <tr onclick="clickFunction(this, {{device}})">
-                                                <td>{{device.0.0}} </td>
+                                                {%autoescape false%}
+                                                    <td>{{device.1 | replace("/", "<br/>") | truncate(100)}}</td>
+                                                {% endautoescape %}
                                                 <!-- <td> {{device.0.1}}</td> -->
                                                 <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.2 in data[6]['iPadOS'] }}"> {{device.2}}</td>
+
                                             </tr>
                                         {% endfor %}
                                     {% elif "Mac" in device_type%}
