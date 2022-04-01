@@ -69,7 +69,7 @@
                                                 <td id="latest_fw-MacOS" class="{{'latest-firmware' if device.2 in data[6]['MacOS'] }}"> {{device.2}}</td>
                                             </tr>
                                         {% endfor %}
-                                        {% for device in data[5][::-1] %}
+                                        {% for device in data[5] %}
                                             <tr onclick="clickFunction(this, {{device}})">
                                                  {%autoescape false%}
                                                     <td>{{device.1 | replace("/", "<br/>")}}</td>
