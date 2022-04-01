@@ -40,7 +40,9 @@
                                         <!-- iPods -->
                                         {% for device in data[4][::-1] %}
                                             <tr onclick="clickFunction(this, {{device}})">
-                                                <td>{{device.0.0}} </td>
+                                                {%autoescape false%}
+                                                    <td>{{device.1 | replace("/", "<br/>")}}</td>
+                                                {% endautoescape %}
                                                 <!-- <td> {{device.0.1}}</td> -->
                                                 <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.2 in data[6]['iOS'] }}"> {{device.2}}</td>
                                             </tr>
@@ -50,7 +52,7 @@
                                         {% for device in data[2][::-1] %}
                                             <tr onclick="clickFunction(this, {{device}})">
                                                 {%autoescape false%}
-                                                    <td>{{device.1 | replace("/", "<br/>") | truncate(100)}}</td>
+                                                    <td>{{device.1 | replace("/", "<br/>")}}</td>
                                                 {% endautoescape %}
                                                 <!-- <td> {{device.0.1}}</td> -->
                                                 <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.2 in data[6]['iPadOS'] }}"> {{device.2}}</td>
@@ -61,13 +63,17 @@
                                         <!-- Macs and Apple Watch -->
                                         {% for device in data[3][::-1] %}
                                             <tr onclick="clickFunction(this, {{device}})">
-                                                <td>{{device.0.0}} </td>
+                                                {%autoescape false%}
+                                                    <td>{{device.1 | replace("/", "<br/>")}}</td>
+                                                {% endautoescape %}
                                                 <td id="latest_fw-MacOS" class="{{'latest-firmware' if device.2 in data[6]['MacOS'] }}"> {{device.2}}</td>
                                             </tr>
                                         {% endfor %}
                                         {% for device in data[5][::-1] %}
                                             <tr onclick="clickFunction(this, {{device}})">
-                                                <td>{{device.0.0}} </td>
+                                                 {%autoescape false%}
+                                                    <td>{{device.1 | replace("/", "<br/>")}}</td>
+                                                {% endautoescape %}
                                                 <td id="latest_fw-WatchOS" class="{{'latest-firmware' if device.2 in data[6]['WatchOS'] }}"> {{device.2}}</td>
                                             </tr>
                                         {% endfor %}

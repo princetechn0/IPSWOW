@@ -14,8 +14,10 @@ function clickFunction(e, data) {
     });
   } else {
     e.classList.add("selected");
-    ready2download.push([data[0][0], data[1], data[2]]);
+    ready2download.push([data[0], data[1], data[2]]);
   }
+
+  console.log(ready2download);
 
   toggle_download_button();
   toggle_clear_button();
@@ -73,7 +75,7 @@ function displayPrompt() {
   for (let i of ready2download) {
     text += `  <tr>
     <th scope="row">${ready2download.indexOf(i) + 1}</th>
-    <td>${i[0]}</td>
+    <td>${i[1].split("/").join("<br>")}</td>
     <td>${i[2]}</td>
   </tr>`;
   }
@@ -154,10 +156,7 @@ function initDownload() {
     let url = urls.pop();
 
     let a = document.createElement("a");
-    dl_text = url[0] + "_" + url[2] + "_Restore.ipsw";
-    a.download = dl_text;
-    console.log(dl_text);
-    a.setAttribute("href", url[1]);
+    a.setAttribute("href", url[0]);
     a.setAttribute("target", "_parent");
     a.click();
 
