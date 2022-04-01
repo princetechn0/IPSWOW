@@ -29,7 +29,7 @@
                                     {% if "iOS" in device_type %} 
                                         <!-- iPhones -->
                                         {% for device in data[1][::-1] %}
-                                            <tr onclick="clickFunction(this, {{device}})">
+                                            <tr class="{{'multi-device' if '/' in device.1}}" onclick="clickFunction(this, {{device}})">
                                                 {%autoescape false%}
                                                     <td>{{device.1 | replace("/", "<br/>")}}</td>
                                                 {% endautoescape %}
@@ -39,7 +39,7 @@
                                         {% endfor %}
                                         <!-- iPods -->
                                         {% for device in data[4][::-1] %}
-                                            <tr onclick="clickFunction(this, {{device}})">
+                                            <tr class="{{'multi-device' if '/' in device.1 }}" onclick="clickFunction(this, {{device}})">
                                                 {%autoescape false%}
                                                     <td>{{device.1 | replace("/", "<br/>")}}</td>
                                                 {% endautoescape %}
@@ -50,7 +50,7 @@
                                     {% elif "iPadOS" in device_type %}
                                         <!-- iPads -->
                                         {% for device in data[2][::-1] %}
-                                            <tr onclick="clickFunction(this, {{device}})">
+                                            <tr class="{{'multi-device' if '/' in device.1 }}" onclick="clickFunction(this, {{device}})">
                                                 {%autoescape false%}
                                                     <td>{{device.1 | replace("/", "<br/>")}}</td>
                                                 {% endautoescape %}
@@ -62,15 +62,15 @@
                                     {% elif "Mac" in device_type%}
                                         <!-- Macs and Apple Watch -->
                                         {% for device in data[3][::-1] %}
-                                            <tr onclick="clickFunction(this, {{device}})">
+                                            <tr class="{{'multi-device' if '/' in device.1 }}" onclick="clickFunction(this, {{device}})">
                                                 {%autoescape false%}
                                                     <td>{{device.1 | replace("/", "<br/>")}}</td>
                                                 {% endautoescape %}
                                                 <td id="latest_fw-MacOS" class="{{'latest-firmware' if device.2 in data[6]['MacOS'] }}"> {{device.2}}</td>
                                             </tr>
                                         {% endfor %}
-                                        {% for device in data[5] %}
-                                            <tr onclick="clickFunction(this, {{device}})">
+                                        {% for device in data[5][::-1] %}
+                                            <tr class="{{'multi-device' if '/' in device.1 }}" onclick="clickFunction(this, {{device}})">
                                                  {%autoescape false%}
                                                     <td>{{device.1 | replace("/", "<br/>")}}</td>
                                                 {% endautoescape %}
@@ -140,6 +140,24 @@
                     </div>
                 </div>
             </div>
+
+            <!-- New Feature Modal -->
+            <div id="multiDevice-Modal" class="modal fade">
+                <div class="modal-dialog modal-sm modal-confirm">
+                    <div class="modal-content">
+                        <div>
+                            <img class="img-fluid tree" src="/static/images/multi_device_tree.png">
+                        </div>
+                        <div class="modal-body text-center">
+                            <h4>New Feature!</h4>	
+                            <p>Devices with the same firmware are grouped!</p>
+                            <button class="btn btn-danger" data-dismiss="modal">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
             <div class="my-custom-button mx-auto my-3"> 
                 <a href="#" id="clear-button" class="btn btn-dark btn-md rounded-pill d-none border border-light" role="button" aria-disabled="true">Clear All</a>

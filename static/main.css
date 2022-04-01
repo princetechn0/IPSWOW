@@ -115,3 +115,10 @@
     display: none;
   } */
 }
+
+.tree {
+  /* width: 150%; */
+  /* height: 400px; */
+
+  overflow: auto;
+}

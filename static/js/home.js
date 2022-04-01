@@ -5,6 +5,10 @@ $(document).ready(function () {
 
 let ready2download = [];
 function clickFunction(e, data) {
+  if (e.className.includes("multi-device")) {
+    displayMultiDeviceModal();
+  }
+
   if (e.className.includes("selected")) {
     e.classList.remove("selected");
 
@@ -16,8 +20,6 @@ function clickFunction(e, data) {
     e.classList.add("selected");
     ready2download.push([data[0], data[1], data[2]]);
   }
-
-  console.log(ready2download);
 
   toggle_download_button();
   toggle_clear_button();
@@ -144,6 +146,10 @@ function createCookie(name, value, days) {
     name.replace(/\s/g, "_") + "=" + value + expires + "; path=/";
 }
 
+function getCookies() {
+  return document.cookie.split(";").map((x) => x.trim());
+}
+
 function createLocalStorage(name, value) {
   localStorage.setItem(name.replace(/\s/g, "_"), value);
 }
@@ -191,9 +197,18 @@ function clrAll() {
 }
 
 function displayIntroModal() {
-  if (!document.cookie.startsWith("visited")) {
+  var cookiesList = getCookies();
+  if (!cookiesList.includes("visited=true")) {
     createCookie("visited", true, 1000);
     $("#intro-Modal").modal("show");
+  }
+}
+
+function displayMultiDeviceModal() {
+  var cookiesList = getCookies();
+  if (!cookiesList.includes("selectedMultiDevice=true")) {
+    createCookie("selectedMultiDevice", true, 1000);
+    $("#multiDevice-Modal").modal("show");
   }
 }
 
