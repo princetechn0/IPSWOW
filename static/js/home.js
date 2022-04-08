@@ -19,6 +19,7 @@ function clickFunction(e, data) {
   } else {
     e.classList.add("selected");
     ready2download.push([data[0], data[1], data[2]]);
+    console.log(ready2download);
   }
 
   toggle_download_button();
