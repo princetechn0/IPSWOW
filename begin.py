@@ -17,10 +17,11 @@ all_devices = [[x['name'], x['identifier'], all_devices_api.index(x)]
 
 
 def filterFunction(device_list):
+    wordsToClean = ["(GSM)", "(Global)", "(WiFi)", "(Cellular)"]
     key_func = lambda x: x[1]
     group = itertools.groupby(sorted(device_list, key=key_func), key=key_func)
     to_clean = [[key, [[x[0][0], x[2], x[3]] for x in list(group)]] for key,group in group]
-    cleaned  =  sorted([[x[0], '/'.join(sorted(set(y[0] for y in x[1]))), x[1][0][1], x[1][0][2]] for x in to_clean], key=operator.itemgetter(3))
+    cleaned  =  sorted([[x[0], '/'.join(sorted(set(' '.join(x for x in y[0].split(' ') if x not in wordsToClean) for y in x[1]))), x[1][0][1], x[1][0][2]] for x in to_clean], key=operator.itemgetter(3))
     return cleaned
 
 # Name, ID, URL, FW Version
