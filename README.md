@@ -13,5 +13,5 @@ This tool is great for developers, repair shops, and schools!
 
 ## 2022-04-14
   
--Removed duplicates for devices that share the same firmware file. 
--Added pop up modal when user clicks a cell of a shared firmware. 
+- Removed duplicates for devices that share the same firmware file. 
+- Added pop up modal when user clicks a cell of a shared firmware. 
