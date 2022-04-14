@@ -109,16 +109,6 @@
   background-color: #50c878bf !important;
 }
 
-@media screen and (max-width: 800px) {
-  /* table td:nth-child(2) {
-    border-spacing: 0;
-    display: none;
-  } */
-}
-
 .tree {
-  /* width: 150%; */
-  /* height: 400px; */
-
   overflow: auto;
 }
