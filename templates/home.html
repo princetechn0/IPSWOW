@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block content %}
-<main role="main" class="container">
+<main role="main">
     <div class="mt-3"> 
             <div class="jumbotron home-jumbo mx-auto">
                 <div class="text-center"> 
@@ -16,12 +16,12 @@
             <div class="form-inline"> 
                 <div class="row shadow-lg p-3 rounded-lg" id="device_tables">
                     {% for device_type in data[0] %}
-                        <div class="my-custom-scrollbar col-md-4">
-                            <table class="table table-bordered table-striped mb-0" id ="table-{{device_type}}">
+                        <div class="my-custom-scrollbar col">
+                            <table class="table table-bordered table-striped mb-0">
                                 <thead onclick="selectAll(this)" id = "table-header-{{device_type}}" class="text-center">
                                     <tr>
-                                        <th class="col-9" scope="col">{{device_type}}</th>
-                                        <th class="" scope="col" id="latest">Latest</th>
+                                        <th scope="col" class="col-9">{{device_type}}</th>
+                                        <th scope="col" id="latest">Latest</th>
                                     </tr>
                                 </thead>
 
@@ -29,40 +29,51 @@
                                     {% if "iOS" in device_type %} 
                                         <!-- iPhones -->
                                         {% for device in data[1][::-1] %}
-                                            <tr onclick="clickFunction(this, {{device}})">
-                                                <td>{{device.0.0}} </td>
+                                            <tr class="{{'multi-device' if '/' in device.1}}" onclick="clickFunction(this, {{device}})">
+                                                {%autoescape false%}
+                                                    <td>{{device.1 | replace("/", "<br/>")}}</td>
+                                                {% endautoescape %}
                                                 <!-- <td> {{device.0.1}}</td> -->
                                                 <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.2 in data[6]['iOS'] }}"> {{device.2}}</td>
                                             </tr>
                                         {% endfor %}
                                         <!-- iPods -->
                                         {% for device in data[4][::-1] %}
-                                            <tr onclick="clickFunction(this, {{device}})">
-                                                <td>{{device.0.0}} </td>
+                                            <tr class="{{'multi-device' if '/' in device.1 }}" onclick="clickFunction(this, {{device}})">
+                                                {%autoescape false%}
+                                                    <td>{{device.1 | replace("/", "<br/>")}}</td>
+                                                {% endautoescape %}
                                                 <!-- <td> {{device.0.1}}</td> -->
                                                 <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.2 in data[6]['iOS'] }}"> {{device.2}}</td>
                                             </tr>
-                                        {% endfor %}
+                                        {% endfor %}    
                                     {% elif "iPadOS" in device_type %}
                                         <!-- iPads -->
-                                        {% for device in data[2][::-1]|list %}
-                                            <tr onclick="clickFunction(this, {{device}})">
-                                                <td>{{device.0.0}} </td>
+                                        {% for device in data[2][::-1] %}
+                                            <tr class="{{'multi-device' if '/' in device.1 }}" onclick="clickFunction(this, {{device}})">
+                                                {%autoescape false%}
+                                                    <td>{{device.1 | replace("/", "<br/>") | truncate(150)}}</td>
+                                                {% endautoescape %}
                                                 <!-- <td> {{device.0.1}}</td> -->
                                                 <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.2 in data[6]['iPadOS'] }}"> {{device.2}}</td>
+
                                             </tr>
                                         {% endfor %}
                                     {% elif "Mac" in device_type%}
                                         <!-- Macs and Apple Watch -->
                                         {% for device in data[3][::-1] %}
-                                            <tr onclick="clickFunction(this, {{device}})">
-                                                <td>{{device.0.0}} </td>
+                                            <tr class="{{'multi-device' if '/' in device.1 }}" onclick="clickFunction(this, {{device}})">
+                                                {%autoescape false%}
+                                                    <td>{{device.1 | replace("/", "<br/>") |truncate(150)}}</td>
+                                                {% endautoescape %}
                                                 <td id="latest_fw-MacOS" class="{{'latest-firmware' if device.2 in data[6]['MacOS'] }}"> {{device.2}}</td>
                                             </tr>
                                         {% endfor %}
                                         {% for device in data[5][::-1] %}
-                                            <tr onclick="clickFunction(this, {{device}})">
-                                                <td>{{device.0.0}} </td>
+                                            <tr class="{{'multi-device' if '/' in device.1 }}" onclick="clickFunction(this, {{device}})">
+                                                 {%autoescape false%}
+                                                    <td>{{device.1 | replace("/", "<br/>")}}</td>
+                                                {% endautoescape %}
                                                 <td id="latest_fw-WatchOS" class="{{'latest-firmware' if device.2 in data[6]['WatchOS'] }}"> {{device.2}}</td>
                                             </tr>
                                         {% endfor %}
@@ -89,7 +100,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Device Name</th>
+                                    <th scope="col" class="col-5">Device Name</th>
                                     <th scope="col">Latest Firmware</th>
                                 </tr>
                             </thead>
@@ -125,6 +136,22 @@
                             <h4>Welcome to IPSWow</h4>	
                             <p>Download firmware, make presets, or just look around!</p>
                             <button class="btn btn-danger" data-dismiss="modal">Let's Go!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Feature Modal -->
+            <div id="multiDevice-Modal" class="modal fade">
+                <div class="modal-dialog modal-sm modal-confirm">
+                    <div class="modal-content">
+                        <div>
+                            <img class="img-fluid tree" src="/static/images/multi_device_tree.png">
+                        </div>
+                        <div class="modal-body text-center">
+                            <h4>New Feature!</h4>	
+                            <p>Devices with the same firmware are grouped!</p>
+                            <button class="btn btn-danger" data-dismiss="modal">Continue</button>
                         </div>
                     </div>
                 </div>

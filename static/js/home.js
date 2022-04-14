@@ -5,6 +5,10 @@ $(document).ready(function () {
 
 let ready2download = [];
 function clickFunction(e, data) {
+  if (e.className.includes("multi-device")) {
+    displayMultiDeviceModal();
+  }
+
   if (e.className.includes("selected")) {
     e.classList.remove("selected");
 
@@ -14,7 +18,8 @@ function clickFunction(e, data) {
     });
   } else {
     e.classList.add("selected");
-    ready2download.push([data[0][0], data[1], data[2]]);
+    ready2download.push([data[0], data[1], data[2]]);
+    console.log(ready2download);
   }
 
   toggle_download_button();
@@ -73,7 +78,7 @@ function displayPrompt() {
   for (let i of ready2download) {
     text += `  <tr>
     <th scope="row">${ready2download.indexOf(i) + 1}</th>
-    <td>${i[0]}</td>
+    <td>${i[1].split("/").join("<br>")}</td>
     <td>${i[2]}</td>
   </tr>`;
   }
@@ -142,6 +147,10 @@ function createCookie(name, value, days) {
     name.replace(/\s/g, "_") + "=" + value + expires + "; path=/";
 }
 
+function getCookies() {
+  return document.cookie.split(";").map((x) => x.trim());
+}
+
 function createLocalStorage(name, value) {
   localStorage.setItem(name.replace(/\s/g, "_"), value);
 }
@@ -154,10 +163,7 @@ function initDownload() {
     let url = urls.pop();
 
     let a = document.createElement("a");
-    dl_text = url[0] + "_" + url[2] + "_Restore.ipsw";
-    a.download = dl_text;
-    console.log(dl_text);
-    a.setAttribute("href", url[1]);
+    a.setAttribute("href", url[0]);
     a.setAttribute("target", "_parent");
     a.click();
 
@@ -192,9 +198,18 @@ function clrAll() {
 }
 
 function displayIntroModal() {
-  if (!document.cookie.startsWith("visited")) {
+  var cookiesList = getCookies();
+  if (!cookiesList.includes("visited=true")) {
     createCookie("visited", true, 1000);
     $("#intro-Modal").modal("show");
+  }
+}
+
+function displayMultiDeviceModal() {
+  var cookiesList = getCookies();
+  if (!cookiesList.includes("selectedMultiDevice=true")) {
+    createCookie("selectedMultiDevice", true, 1000);
+    $("#multiDevice-Modal").modal("show");
   }
 }
 

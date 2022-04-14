@@ -48,15 +48,13 @@ function clickFunction(e) {
 
   // getting the name of the cookie from inner text
   target = e.text.split("\n")[1].trim();
-  console.log("the cleaned target name is", target);
-  console.log(cleaned_list[target]);
 
   // Displaying modal with Name of item
   let count = 0;
   for (let i of cleaned_list[target]) {
-    text += `  <tr>
+    text += `<tr>
        <th scope="row"> ${count + 1}</th>
-       <td>${i[0]}</td>
+       <td>${i[1].replaceAll("/", "<br>")}</td>
        <td>${i[2]}</td>
      </tr>`;
     count++;
@@ -73,11 +71,10 @@ function initDownload() {
   function download(urls) {
     let url = urls.pop();
 
+    console.log(url);
+
     let a = document.createElement("a");
-    dl_text = url[0] + "_" + url[2] + "_Restore.ipsw";
-    a.download = dl_text;
-    console.log(dl_text);
-    a.setAttribute("href", url[1]);
+    a.setAttribute("href", url[0]);
     a.setAttribute("target", "_parent");
     a.click();
 
