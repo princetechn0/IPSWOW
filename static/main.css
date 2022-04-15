@@ -119,18 +119,9 @@ table {
   touch-action: manipulation;
 }
 
-#device_tables {
-  background-color: #e9ecef;
-}
-
 #device_tables th {
-  background: white;
   position: sticky;
   top: 0;
   background-color: #5056d3fc;
   color: white;
-}
-
-#device_tables tr {
-  background-color: white;
 }
