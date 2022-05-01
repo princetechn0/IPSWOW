@@ -106,16 +106,11 @@ device_types = ["iOS", "iPadOS", "MacOS / WatchOS"]
 
 
 
-# grouped_iPhones = Device.query.filter_by(name='iPhone 2G').all()
 grouped_iPhones = Device.query.filter(Device.name.contains('iPhone')).all()
 grouped_iPads = Device.query.filter(Device.name.contains('iPad')).all()
 grouped_Macs = Device.query.filter(Device.name.contains('Mac')).all()
 grouped_iPods = Device.query.filter(Device.name.contains('iPod')).all()
 grouped_Watches = Device.query.filter(Device.name.contains('Watch')).all()
-
-
-print(grouped_Macs[-1].firmware)
-
 latest_firmwares = {
     "iOS": grouped_iPhones[-1].firmware,
     "iPadOS": grouped_iPads[-1].firmware,
@@ -126,8 +121,8 @@ latest_firmwares = {
 
 
 
-@ app.route("/", methods=["GET"])
-@ app.route("/home", methods=["GET"])
+@ app.route("/")
+@ app.route("/home")
 def home():
     return render_template('home.html', data=[device_types, grouped_iPhones, grouped_iPads, grouped_Macs, grouped_iPods, grouped_Watches, latest_firmwares])
 
