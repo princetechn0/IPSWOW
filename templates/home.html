@@ -29,7 +29,7 @@
                                     {% if "iOS" in device_type %} 
                                         <!-- iPhones -->
                                         {% for device in data[1][::-1] %}
-                                            <tr class="{{'multi-device' if '/' in device.name}}" onclick="clickFunction(this, {{device}})">
+                                            <tr class="{{'multi-device' if '/' in device.name}}" onclick="clickFunction( this,  {{device}} )">
                                                 {%autoescape false%}
                                                     <td>{{device.name | replace("/", "<br/>")}}</td>
                                                 {% endautoescape %}
@@ -38,7 +38,7 @@
                                         {% endfor %}
                                         <!-- iPods -->
                                         {% for device in data[4][::-1] %}
-                                            <tr class="{{'multi-device' if '/' in device.name }}" onclick="clickFunction(this, {{device}})">
+                                            <tr class="{{'multi-device' if '/' in device.name }}" onclick="clickFunction( this, {{device}} )">
                                                 {%autoescape false%}
                                                     <td>{{device.name | replace("/", "<br/>")}}</td>
                                                 {% endautoescape %}

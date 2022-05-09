@@ -1,60 +1,18 @@
 #!/usr/bin/env python3
 from crypt import methods
+import json
+from lib2to3.pytree import convert
 import requests
 import itertools
 import operator
 from flask import Flask, render_template
-
-
 from flask_sqlalchemy import SQLAlchemy
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-SQLALCHEMY_TRACK_MODIFICATIONS = False
-db = SQLAlchemy(app)
-
-class Device(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String, nullable=False)
-    name = db.Column(db.String(200), nullable=False)
-    firmware = db.Column(db.String(20), nullable=False)
-
-    def __init__(self, url, name, firmware):
-        self.url = url
-        self.name = name
-        self.firmware = firmware
-
-    def __repr__(self) -> str:
-        return "ID: %s, %s, %s, %s" % (self.id, self.url, self.name, self.firmware) 
-
-
-# def add_data(url, name, firmware):  
-#   try:
-#       db.session.add(Device(url, name, firmware))
-#       db.session.commit()
-#   except:
-#     print("Add Device failed")
-
-# def delete_data():
-#     try:
-#         db.session.delete()
-#         db.session.commit()
-#     except:
-#         print("Delete Device failed")
-
-
-# def clear_data():
-#     meta = db.metadata
-#     for table in reversed(meta.sorted_tables):
-#         print("deleting")
-#         db.session.execute(table.delete())
-#         db.session.commit()
-#     print("done")
+from application import app
+from db import Device, clear_data, add_data, delete_data, initializeDB
 
 
 # clear_data()
-# def initializeDB(incoming_data):
-#     for x in incoming_data:
-#         add_data(x[0], x[1], x[2])
+
 
 # Prints the devices in the server
 # all_devices_api = requests.get("https://api.ipsw.me/v4/devices").json()
@@ -72,7 +30,7 @@ device_types = ["iOS", "iPadOS", "MacOS / WatchOS"]
 #     group = itertools.groupby(sorted(device_list, key=key_func), key=key_func)
 #     to_clean = [[key, [[x[0][0], x[2], x[3]] for x in list(group)]] for key,group in group]
 #     cleaned  =  sorted([[x[0], '/'.join(sorted(set(' '.join(x for x in y[0].split(' ') if x not in wordsToClean) for y in x[1]))), x[1][0][1], x[1][0][2]] for x in to_clean], key=operator.itemgetter(3))
-#     # initializeDB(cleaned)
+#     initializeDB(cleaned)
 #     return cleaned
 
 # # Name, ID, URL, FW Version
@@ -105,20 +63,21 @@ device_types = ["iOS", "iPadOS", "MacOS / WatchOS"]
 # grouped_Watches = filterFunction(all_watches)
 
 
+def convertToJSON(deviceList):
+    return ([r.dictRep() for r in deviceList])
 
-grouped_iPhones = Device.query.filter(Device.name.contains('iPhone')).all()
-grouped_iPads = Device.query.filter(Device.name.contains('iPad')).all()
-grouped_Macs = Device.query.filter(Device.name.contains('Mac')).all()
-grouped_iPods = Device.query.filter(Device.name.contains('iPod')).all()
-grouped_Watches = Device.query.filter(Device.name.contains('Watch')).all()
+grouped_iPhones = convertToJSON(Device.query.filter(Device.name.contains('iPhone')).all())
+grouped_iPads = convertToJSON(Device.query.filter(Device.name.contains('iPad')).all())
+grouped_Macs = convertToJSON(Device.query.filter(Device.name.contains('Mac')).all())
+grouped_iPods = convertToJSON(Device.query.filter(Device.name.contains('iPod')).all())
+grouped_Watches = convertToJSON(Device.query.filter(Device.name.contains('Watch')).all())
+
 latest_firmwares = {
-    "iOS": grouped_iPhones[-1].firmware,
-    "iPadOS": grouped_iPads[-1].firmware,
-    "MacOS": grouped_Macs[-1].firmware,
-    "WatchOS":grouped_Watches[-1].firmware,
+    "iOS": grouped_iPhones[-1]['firmware'],
+    "iPadOS": grouped_iPads[-1]['firmware'],
+    "MacOS": grouped_Macs[-1]['firmware'],
+    "WatchOS":grouped_Watches[-1]['firmware'],
 }
-
-
 
 
 @ app.route("/")

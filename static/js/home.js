@@ -13,13 +13,13 @@ function clickFunction(e, data) {
     e.classList.remove("selected");
 
     // Filters out the un-selected element from the array
-    ready2download = ready2download.filter(function (el) {
-      return !~el.indexOf(data[1]);
+    ready2download = ready2download.filter(function (currElem) {
+      return currElem.name != data.name;
     });
   } else {
     e.classList.add("selected");
-    ready2download.push([data[0], data[1], data[2]]);
-    console.log(ready2download);
+    ready2download.push(data);
+    // console.log(ready2download);
   }
 
   toggle_download_button();
@@ -75,11 +75,11 @@ function displayPrompt() {
   // Modal Form
   let modal_body = document.getElementById("modal-table-body");
   text = "";
-  for (let i of ready2download) {
+  for (let device of ready2download) {
     text += `  <tr>
-    <th scope="row">${ready2download.indexOf(i) + 1}</th>
-    <td>${i[1].split("/").join("<br>")}</td>
-    <td>${i[2]}</td>
+    <th scope="row">${ready2download.indexOf(device) + 1}</th>
+    <td>${device["name"].split("/").join("<br>")}</td>
+    <td>${device["firmware"]}</td>
   </tr>`;
   }
   modal_body.innerHTML = text;
@@ -163,7 +163,7 @@ function initDownload() {
     let url = urls.pop();
 
     let a = document.createElement("a");
-    a.setAttribute("href", url[0]);
+    a.setAttribute("href", url["url"]);
     a.setAttribute("target", "_parent");
     a.click();
 

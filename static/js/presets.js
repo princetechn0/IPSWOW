@@ -51,11 +51,11 @@ function clickFunction(e) {
 
   // Displaying modal with Name of item
   let count = 0;
-  for (let i of cleaned_list[target]) {
+  for (let device of cleaned_list[target]) {
     text += `<tr>
        <th scope="row"> ${count + 1}</th>
-       <td>${i[1].replaceAll("/", "<br>")}</td>
-       <td>${i[2]}</td>
+       <td>${device["name"].replaceAll("/", "<br>")}</td>
+       <td>${device["firmware"]}</td>
      </tr>`;
     count++;
   }
@@ -71,10 +71,8 @@ function initDownload() {
   function download(urls) {
     let url = urls.pop();
 
-    console.log(url);
-
     let a = document.createElement("a");
-    a.setAttribute("href", url[0]);
+    a.setAttribute("href", url["url"]);
     a.setAttribute("target", "_parent");
     a.click();
 
