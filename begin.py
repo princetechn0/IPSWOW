@@ -4,6 +4,7 @@ from application import app
 from db_checkForUpdate import checkForUpdate
 from db import Device
 
+
 checkForUpdate()
 
 device_types = ["iOS", "iPadOS", "MacOS / WatchOS"]
