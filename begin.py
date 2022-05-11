@@ -1,18 +1,10 @@
 #!/usr/bin/env python3
-from crypt import methods
-from lib2to3.pytree import convert
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
+from flask import render_template
 from application import app
 from db_checkForUpdate import checkForUpdate
 from db import Device
-from db_checkForUpdate import CurrentApiHash, updateHash
-
-# updateHash("dslkjfklds")
-
 
 checkForUpdate()
-
 
 device_types = ["iOS", "iPadOS", "MacOS / WatchOS"]
 
@@ -50,4 +42,4 @@ def about():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

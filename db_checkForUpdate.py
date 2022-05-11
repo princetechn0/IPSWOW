@@ -1,4 +1,3 @@
-from turtle import clear, update
 from flask_sqlalchemy import SQLAlchemy
 import requests
 import hashlib

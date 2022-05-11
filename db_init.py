@@ -1,10 +1,10 @@
-from db import Device, clear_data, initializeDB
+from db import clear_data, initializeDB
 import requests
 import itertools
 import operator
 
 def initDB():
-    # Clearing previous tables
+    # Clearing previous table
     clear_data()
 
     # Gets the new set of devices from API
