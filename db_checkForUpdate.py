@@ -1,4 +1,4 @@
-from turtle import update
+from turtle import clear, update
 from flask_sqlalchemy import SQLAlchemy
 import requests
 import hashlib
@@ -13,8 +13,11 @@ db = SQLAlchemy(app)
 class CurrentApiHash(db.Model):
     hashValue = db.Column(db.String(32), nullable=False, primary_key=True)
 
-    def __repr__(self):
-        return '<Currently Saved Hash: %r>' % self.hashValue
+    def __init__(self, hashValue):
+        self.hashValue = hashValue
+
+    def __repr__(self) -> str:
+        return "Current Hash Value: %s" % (self.hashValue) 
 
 
 def checkForUpdate():
@@ -27,11 +30,11 @@ def checkForUpdate():
         print(CurrentApiHash.query.first().hashValue)
         
         if(currentHash != newHash):
-            print("rinning")
             updateAll()
             updateHash(newHash)
         else:
             print("API up to date")
+            print("Running App without Update")
 
     except:
         print("Check Hash Failed")
@@ -47,8 +50,17 @@ def updateAll():
 
 def updateHash(newHashValue):  
   try:
+      clear_data()
       db.session.add(CurrentApiHash(newHashValue))
       db.session.commit()
       print("Hash Update Success")
   except:
     print("Hash Update Failed")
+
+
+def clear_data():
+    meta = db.metadata
+    for table in reversed(meta.sorted_tables):
+        db.session.execute(table.delete())
+        db.session.commit()
+    print("DB Cleared")

@@ -6,9 +6,12 @@ from flask_sqlalchemy import SQLAlchemy
 from application import app
 from db_checkForUpdate import checkForUpdate
 from db import Device
+from db_checkForUpdate import CurrentApiHash, updateHash
+
+# updateHash("dslkjfklds")
 
 
-# checkForUpdate()
+checkForUpdate()
 
 
 device_types = ["iOS", "iPadOS", "MacOS / WatchOS"]

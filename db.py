@@ -41,13 +41,6 @@ def initializeDB(incoming_data):
         add_data(x[0], x[1], x[2])
     print("DB initialized")
 
-def delete_data():
-    try:
-        db.session.delete()
-        db.session.commit()
-    except:
-        print("Delete Device failed")
-
 def clear_data():
     meta = db.metadata
     for table in reversed(meta.sorted_tables):
