@@ -29,52 +29,49 @@
                                     {% if "iOS" in device_type %} 
                                         <!-- iPhones -->
                                         {% for device in data[1][::-1] %}
-                                            <tr class="{{'multi-device' if '/' in device.1}}" onclick="clickFunction(this, {{device}})">
+                                            <tr class="{{'multi-device' if '/' in device.name}}" onclick="clickFunction( this,  {{device}} )">
                                                 {%autoescape false%}
-                                                    <td>{{device.1 | replace("/", "<br/>")}}</td>
+                                                    <td>{{device.name | replace("/", "<br/>")}}</td>
                                                 {% endautoescape %}
-                                                <!-- <td> {{device.0.1}}</td> -->
-                                                <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.2 in data[6]['iOS'] }}"> {{device.2}}</td>
+                                                <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.firmware in data[6]['iOS'] }}"> {{device.firmware}}</td>
                                             </tr>
                                         {% endfor %}
                                         <!-- iPods -->
                                         {% for device in data[4][::-1] %}
-                                            <tr class="{{'multi-device' if '/' in device.1 }}" onclick="clickFunction(this, {{device}})">
+                                            <tr class="{{'multi-device' if '/' in device.name }}" onclick="clickFunction( this, {{device}} )">
                                                 {%autoescape false%}
-                                                    <td>{{device.1 | replace("/", "<br/>")}}</td>
+                                                    <td>{{device.name | replace("/", "<br/>")}}</td>
                                                 {% endautoescape %}
-                                                <!-- <td> {{device.0.1}}</td> -->
-                                                <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.2 in data[6]['iOS'] }}"> {{device.2}}</td>
+                                                <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.firmware in data[6]['iOS'] }}"> {{device.firmware}}</td>
                                             </tr>
                                         {% endfor %}    
                                     {% elif "iPadOS" in device_type %}
                                         <!-- iPads -->
                                         {% for device in data[2][::-1] %}
-                                            <tr class="{{'multi-device' if '/' in device.1 }}" onclick="clickFunction(this, {{device}})">
+                                            <tr class="{{'multi-device' if '/' in device.name }}" onclick="clickFunction(this, {{device}})">
                                                 {%autoescape false%}
-                                                    <td>{{device.1 | replace("/", "<br/>") | truncate(150)}}</td>
+                                                    <td>{{device.name | replace("/", "<br/>") | truncate(150)}}</td>
                                                 {% endautoescape %}
-                                                <!-- <td> {{device.0.1}}</td> -->
-                                                <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.2 in data[6]['iPadOS'] }}"> {{device.2}}</td>
+                                                <td id="latest_fw-{{device_type}}" class="{{'latest-firmware' if device.firmware in data[6]['iPadOS'] }}"> {{device.firmware}}</td>
 
                                             </tr>
                                         {% endfor %}
                                     {% elif "Mac" in device_type%}
                                         <!-- Macs and Apple Watch -->
                                         {% for device in data[3][::-1] %}
-                                            <tr class="{{'multi-device' if '/' in device.1 }}" onclick="clickFunction(this, {{device}})">
+                                            <tr class="{{'multi-device' if '/' in device.name }}" onclick="clickFunction(this, {{device}})">
                                                 {%autoescape false%}
-                                                    <td>{{device.1 | replace("/", "<br/>") |truncate(150)}}</td>
+                                                    <td>{{device.name | replace("/", "<br/>") |truncate(150)}}</td>
                                                 {% endautoescape %}
-                                                <td id="latest_fw-MacOS" class="{{'latest-firmware' if device.2 in data[6]['MacOS'] }}"> {{device.2}}</td>
+                                                <td id="latest_fw-MacOS" class="{{'latest-firmware' if device.firmware in data[6]['MacOS'] }}"> {{device.firmware}}</td>
                                             </tr>
                                         {% endfor %}
                                         {% for device in data[5][::-1] %}
-                                            <tr class="{{'multi-device' if '/' in device.1 }}" onclick="clickFunction(this, {{device}})">
+                                            <tr class="{{'multi-device' if '/' in device.name }}" onclick="clickFunction(this, {{device}})">
                                                  {%autoescape false%}
-                                                    <td>{{device.1 | replace("/", "<br/>")}}</td>
+                                                    <td>{{device.name | replace("/", "<br/>")}}</td>
                                                 {% endautoescape %}
-                                                <td id="latest_fw-WatchOS" class="{{'latest-firmware' if device.2 in data[6]['WatchOS'] }}"> {{device.2}}</td>
+                                                <td id="latest_fw-WatchOS" class="{{'latest-firmware' if device.firmware in data[6]['WatchOS'] }}"> {{device.firmware}}</td>
                                             </tr>
                                         {% endfor %}
                                     {% endif %}
@@ -100,7 +97,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col" class="col-5">Device Name</th>
+                                    <th scope="col" class="col">Device Name</th>
                                     <th scope="col">Latest Firmware</th>
                                 </tr>
                             </thead>
@@ -171,5 +168,8 @@
 
 {% block js %} 
     <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+    <!-- <script type="text/javascript">
+        myVar = checkLatestVersions({{data[6]|tojson}});
+     </script> -->
 {% endblock js%}
 
