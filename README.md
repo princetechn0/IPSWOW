@@ -15,11 +15,13 @@ This tool is great for developers, repair shops, and schools!
 
 ### Changed
 - Transitioned to relational database for storing IPSW information.
-  - Greatly improves load times and reduces data usage.
+  - Improves load times
+  - Reduces data usage
 - Cleaned code. 
 
 ### Issues
 - Previously saved presets will be out of format. Please delete and create again. 
+- Presets not updating to use latest IPSW (Next fix). 
 
 ## 2022-04-14
 
