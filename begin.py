@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
+import os
 from flask import render_template
+from sqlalchemy import false
 from application import app
 from db_checkForUpdate import checkForUpdate
 from db import Device
@@ -43,4 +45,6 @@ def about():
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    port_nr = int(os.environ.get("PORT", 5001))
+    app.run(port=port_nr, host='0.0.0.0', debug=false)
+    # app.run(debug=False)
