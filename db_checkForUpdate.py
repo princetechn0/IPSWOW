@@ -33,6 +33,12 @@ def checkForUpdate():
             print("API up to date")
             print("Running App without Update")
 
+        #############################
+        # IF MANUAL DB FLUSH NEEDED #
+        # updateAll()
+        # updateHash(newHash)
+        #############################
+
     except:
         print("Check Hash Failed")
 

@@ -12,7 +12,7 @@ def initDB():
 
     # Re-initializing DB 
     all_devices = [[x['name'], x['identifier'], all_devices_api.index(x)]
-                for x in all_devices_api if "iBridge" not in x['name'] and "Developer Transition Kit" not in x["name"]]
+                for x in all_devices_api if "iBridge" not in x["name"] and "Developer Transition Kit" not in x["name"] and "Apple Virtual Machine 1" not in x["name"]]
     
     # Name, ID, URL, FW Version
     all_iPhones = [[x, requests.get(
