@@ -11,6 +11,18 @@ This tool is great for developers, repair shops, and schools!
 
 # Change Log
 
+## 2022-05-11
+
+### Changed
+- Transitioned to relational database for storing IPSW information.
+  - Improves load times
+  - Reduces data usage
+- Cleaned code. 
+
+### Issues
+- Previously saved presets will be out of format. Please delete and create again. 
+- Presets not updating to use latest IPSW (Next fix). 
+
 ## 2022-04-14
 
 ### Changed
