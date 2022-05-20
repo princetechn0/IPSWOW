@@ -1,8 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-from app_setup import app, db
+from app_setup import db
 
-SQLALCHEMY_TRACK_MODIFICATIONS = False
-# db_device = SQLAlchemy(app)
 
 class Device(db.Model):
     id = db.Column(db.Integer, primary_key=True)
