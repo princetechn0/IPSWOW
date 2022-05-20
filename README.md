@@ -7,9 +7,10 @@ Therefore, I wanted a tool to allow for bulk IPSW downloading of the latest firm
 This tool is great for developers, repair shops, and schools!
 
 
-
-
 # Change Log
+
+## 2022-05-19
+- Site currently experiencing issues due to database problems. Going up and down periodically. Will fix in near future. Sorry for inconvenience. 
 
 ## 2022-05-11
 
