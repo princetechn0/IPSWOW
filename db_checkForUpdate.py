@@ -2,10 +2,9 @@ from flask_sqlalchemy import SQLAlchemy
 import requests
 import hashlib
 import json
-from application import app
+from app_setup import app
 from db_init import initDB
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 db = SQLAlchemy(app)
 
@@ -48,7 +47,7 @@ def updateAll():
       initDB()
       print("New table data finished")
   except:
-    print("Add Device failed")
+      print("Add Device failed")
 
 
 def updateHash(newHashValue):  
@@ -58,7 +57,7 @@ def updateHash(newHashValue):
       db.session.commit()
       print("Hash Update Success")
   except:
-    print("Hash Update Failed")
+      print("Hash Update Failed")
 
 
 def clear_data():
@@ -66,4 +65,4 @@ def clear_data():
     for table in reversed(meta.sorted_tables):
         db.session.execute(table.delete())
         db.session.commit()
-    print("DB Cleared")
+    print("HASH DB Cleared")

@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-from application import app
+from app_setup import app
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 db = SQLAlchemy(app)
 
@@ -39,11 +38,11 @@ def add_data(url, name, firmware):
 def initializeDB(incoming_data):
     for x in incoming_data:
         add_data(x[0], x[1], x[2])
-    print("DB initialized")
+    print("DEVICE DB initialized")
 
 def clear_data():
     meta = db.metadata
     for table in reversed(meta.sorted_tables):
         db.session.execute(table.delete())
         db.session.commit()
-    print("DB Cleared")
+    print("DEVICE DB Cleared")

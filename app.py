@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from flask import render_template
-from sqlalchemy import false
-from application import app
+from app_setup import app
 from db_checkForUpdate import checkForUpdate
 from db import Device
 
