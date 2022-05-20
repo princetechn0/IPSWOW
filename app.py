@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 from flask import render_template
 from app_setup import app
-from db_checkForUpdate import checkForUpdate
-from db import Device
+from hash_model import checkForUpdate
+from device_model import Device
 
 
 checkForUpdate()

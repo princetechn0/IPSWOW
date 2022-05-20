@@ -1,4 +1,4 @@
-from db import clear_data, initializeDB
+from device_model import clear_data, initializeDB
 import requests
 import itertools
 import operator
