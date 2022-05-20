@@ -1,3 +1,4 @@
+from threading import currentThread
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 import requests
@@ -22,6 +23,7 @@ def checkForUpdate():
         all_devices_api = requests.get("https://api.ipsw.me/v4/devices").json()
         newHash = hashlib.md5(json.dumps(all_devices_api, sort_keys = True).encode("utf-8")).hexdigest()
         currentHash = CurrentApiHash.query.first()
+        print(currentHash)
 
         if(currentHash is None or currentHash.hashValue != newHash):
             print("API outdated. Running Update")
@@ -30,13 +32,6 @@ def checkForUpdate():
         else:
             print("API up to date")
             print("Running App without Update")
-
-        #############################
-        # IF MANUAL DB FLUSH NEEDED #
-        # updateAll()
-        # updateHash(newHash)
-        #############################
-
     except:
         print("Check Hash Failed")
 
@@ -61,4 +56,5 @@ def updateHash(newHashValue):
 
 def clear_data():
     CurrentApiHash.query.delete()
+    db.session.commit()
     print("HASH DB Cleared")

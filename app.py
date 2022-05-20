@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from tokenize import group
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from app_setup import app
@@ -14,11 +15,12 @@ device_types = ["iOS", "iPadOS", "MacOS / WatchOS"]
 def convertToJSON(deviceList):
     return ([r.dictRep() for r in deviceList])
 
-grouped_iPhones = convertToJSON(Device.query.filter(Device.name.contains('iPhone')).all())
+grouped_iPhones = convertToJSON(Device.query.filter(Device.name.contains('iPhone')).order_by(Device.id).all())
 grouped_iPads = convertToJSON(Device.query.filter(Device.name.contains('iPad')).all())
 grouped_Macs = convertToJSON(Device.query.filter(Device.name.contains('Mac')).all())
 grouped_iPods = convertToJSON(Device.query.filter(Device.name.contains('iPod')).all())
 grouped_Watches = convertToJSON(Device.query.filter(Device.name.contains('Watch')).all())
+
 
 latest_firmwares = {
     "iOS": grouped_iPhones[-1]['firmware'],

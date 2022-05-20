@@ -40,4 +40,5 @@ def initializeDB(incoming_data):
 
 def clear_data():
     Device.query.delete()
+    db.session.commit()
     print("DEVICE DB Cleared")
