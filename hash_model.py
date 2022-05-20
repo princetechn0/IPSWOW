@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import exc
 import requests
 import hashlib
 import json
@@ -20,9 +21,9 @@ def checkForUpdate():
     try:
         all_devices_api = requests.get("https://api.ipsw.me/v4/devices").json()
         newHash = hashlib.md5(json.dumps(all_devices_api, sort_keys = True).encode("utf-8")).hexdigest()
-        currentHash = CurrentApiHash.query.first().hashValue
+        currentHash = CurrentApiHash.query.first()
 
-        if(bool(currentHash) or currentHash != newHash):
+        if(currentHash is None or currentHash.hashValue != newHash):
             print("API outdated. Running Update")
             updateAll()
             updateHash(newHash)
@@ -59,8 +60,5 @@ def updateHash(newHashValue):
 
 
 def clear_data():
-    meta = db.metadata
-    for table in reversed(meta.sorted_tables):
-        db.session.execute(table.delete())
-        db.session.commit()
+    CurrentApiHash.query.delete()
     print("HASH DB Cleared")

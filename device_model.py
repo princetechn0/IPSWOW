@@ -5,8 +5,8 @@ from app_setup import db
 class Device(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String, nullable=False)
-    name = db.Column(db.String(200), nullable=False)
-    firmware = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String, nullable=False)
+    firmware = db.Column(db.String, nullable=False)
 
     def __init__(self, url, name, firmware):
         self.url = url
@@ -39,8 +39,5 @@ def initializeDB(incoming_data):
     print("DEVICE DB initialized")
 
 def clear_data():
-    meta = db.metadata
-    for table in reversed(meta.sorted_tables):
-        db.session.execute(table.delete())
-        db.session.commit()
+    Device.query.delete()
     print("DEVICE DB Cleared")
