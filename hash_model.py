@@ -22,7 +22,7 @@ def checkForUpdate():
         newHash = hashlib.md5(json.dumps(all_devices_api, sort_keys = True).encode("utf-8")).hexdigest()
         currentHash = CurrentApiHash.query.first().hashValue
 
-        if(currentHash != newHash):
+        if(bool(currentHash) or currentHash != newHash):
             print("API outdated. Running Update")
             updateAll()
             updateHash(newHash)
