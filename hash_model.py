@@ -4,9 +4,10 @@ import hashlib
 import json
 from app_setup import app
 from db_init import initDB
+from app_setup import db
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
-db = SQLAlchemy(app)
+# db_hash = SQLAlchemy(app)
 
 class CurrentApiHash(db.Model):
     hashValue = db.Column(db.String(32), nullable=False, primary_key=True)
