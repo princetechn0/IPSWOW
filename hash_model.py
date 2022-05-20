@@ -23,7 +23,6 @@ def checkForUpdate():
         all_devices_api = requests.get("https://api.ipsw.me/v4/devices").json()
         newHash = hashlib.md5(json.dumps(all_devices_api, sort_keys = True).encode("utf-8")).hexdigest()
         currentHash = CurrentApiHash.query.first()
-        print(currentHash)
 
         if(currentHash is None or currentHash.hashValue != newHash):
             print("API outdated. Running Update")
