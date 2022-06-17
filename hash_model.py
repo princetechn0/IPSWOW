@@ -1,6 +1,3 @@
-from threading import currentThread
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import exc
 import requests
 import hashlib
 import json
