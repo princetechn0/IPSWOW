@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-from tokenize import group
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
+from flask import render_template
 from app_setup import app
 from hash_model import checkForUpdate
 from device_model import Device
