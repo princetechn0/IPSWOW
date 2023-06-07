@@ -4,11 +4,7 @@ from app_setup import app
 from hash_model import checkForUpdate
 from device_model import Device
 
-
 checkForUpdate()
-
-device_types = ["iOS", "iPadOS", "MacOS / WatchOS"]
-
 
 def convertToJSON(deviceList):
     return ([r.dictRep() for r in deviceList])
@@ -19,19 +15,44 @@ grouped_Macs = convertToJSON(Device.query.filter(Device.name.contains('Mac')).al
 grouped_iPods = convertToJSON(Device.query.filter(Device.name.contains('iPod')).all())
 grouped_Watches = convertToJSON(Device.query.filter(Device.name.contains('Watch')).all())
 
+column_headers = ["iOS", "iPadOS", "MacOS / WatchOS"]
 
 latest_firmwares = {
-    "iOS": grouped_iPhones[-1]['firmware'],
-    "iPadOS": grouped_iPads[-1]['firmware'],
-    "MacOS": grouped_Macs[-1]['firmware'],
-    "WatchOS":grouped_Watches[-1]['firmware'],
+    "iOS": "",
+    "iPadOS": "",
+    "MacOS": "",
+    "WatchOS": "",
 }
+
+try:
+    if grouped_iPhones:
+        latest_firmwares["iOS"] = grouped_iPhones[-1]['firmware']
+except (IndexError, KeyError):
+    pass
+
+try:
+    if grouped_iPads:
+        latest_firmwares["iPadOS"] = grouped_iPads[-1]['firmware']
+except (IndexError, KeyError):
+    pass
+
+try:
+    if grouped_Macs:
+        latest_firmwares["MacOS"] = grouped_Macs[-1]['firmware']
+except (IndexError, KeyError):
+    pass
+
+try:
+    if grouped_Watches:
+        latest_firmwares["WatchOS"] = grouped_Watches[-1]['firmware']
+except (IndexError, KeyError):
+    pass
 
 
 @ app.route("/")
 @ app.route("/home")
 def home():
-    return render_template('home.html', data=[device_types, grouped_iPhones, grouped_iPads, grouped_Macs, grouped_iPods, grouped_Watches, latest_firmwares])
+    return render_template('home.html', data=[column_headers, grouped_iPhones, grouped_iPads, grouped_Macs, grouped_iPods, grouped_Watches, latest_firmwares])
 
 @ app.route("/presets")
 def presets():
