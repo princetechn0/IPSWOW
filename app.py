@@ -17,13 +17,14 @@ grouped_Watches = convertToJSON(Device.query.filter(Device.name.contains('Watch'
 
 column_headers = ["iOS", "iPadOS", "MacOS / WatchOS"]
 
+
+# Get latest firmwares for each OS type
 latest_firmwares = {
     "iOS": "",
     "iPadOS": "",
     "MacOS": "",
     "WatchOS": "",
 }
-
 try:
     if grouped_iPhones:
         latest_firmwares["iOS"] = grouped_iPhones[-1]['firmware']
