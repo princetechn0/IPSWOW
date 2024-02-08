@@ -1,19 +1,25 @@
 #!/usr/bin/env python3
-from flask import render_template
 from app_setup import app
 from hash_model import checkForUpdate
 from device_model import Device
+from flask_cors import CORS
+from urllib.parse import unquote
+
+CORS(app)
+app.app_context().push()
 
 checkForUpdate()
+
 
 def convertToJSON(deviceList):
     return ([r.dictRep() for r in deviceList])
 
-grouped_iPhones = convertToJSON(Device.query.filter(Device.name.contains('iPhone')).order_by(Device.id).all())
-grouped_iPads = convertToJSON(Device.query.filter(Device.name.contains('iPad')).all())
-grouped_Macs = convertToJSON(Device.query.filter(Device.name.contains('Mac')).all())
-grouped_iPods = convertToJSON(Device.query.filter(Device.name.contains('iPod')).all())
-grouped_Watches = convertToJSON(Device.query.filter(Device.name.contains('Watch')).all())
+with app.app_context():
+    grouped_iPhones = convertToJSON(Device.query.filter(Device.name.contains('iPhone')).order_by(Device.id).all())
+    grouped_iPads = convertToJSON(Device.query.filter(Device.name.contains('iPad')).all())
+    grouped_Macs = convertToJSON(Device.query.filter(Device.name.contains('Mac')).all())
+    grouped_iPods = convertToJSON(Device.query.filter(Device.name.contains('iPod')).all())
+    grouped_Watches = convertToJSON(Device.query.filter(Device.name.contains('Watch')).all())
 
 column_headers = ["iOS", "iPadOS", "MacOS / WatchOS"]
 
@@ -53,17 +59,25 @@ except (IndexError, KeyError):
 @ app.route("/")
 @ app.route("/home")
 def home():
-    return render_template('home.html', data=[column_headers, grouped_iPhones, grouped_iPads, grouped_Macs, grouped_iPods, grouped_Watches, latest_firmwares])
+    return { 'devices' : [{'name': 'iOS', 'data' : [*grouped_iPhones[::-1], *grouped_iPods[::-1]]}, {'name': 'iPadOS', 'data': grouped_iPads[::-1]}, {'name': 'MacOS/WatchOS', 'data': [*grouped_Macs, *grouped_Watches[::-1]]}], 'firmwares': latest_firmwares}
+    # return render_template('home.html', data=[column_headers, grouped_iPhones, grouped_iPads, grouped_Macs, grouped_iPods, grouped_Watches, latest_firmwares])
 
-@ app.route("/presets")
-def presets():
-    return render_template('presets.html')
+# @ app.route("/presets")
+# def presets():
+#     return render_template('presets.html')
 
+@app.route("/getDeviceByName/<device_name>")
+def getDeviceByName(device_name):
+    decoded_device_name = unquote(device_name)
+    print("Searching for device with name:", decoded_device_name)
 
-@ app.route("/about")
-def about():
-    return render_template('about.html')
-
+    first_entry = Device.query.filter(Device.name == decoded_device_name).first()
+    print(first_entry)
+    
+    if first_entry:
+        return first_entry.dictRep()
+    else:
+        return f"No device found with name: {decoded_device_name}", 404
 
 if __name__ == "__main__":
     app.run(debug=False)

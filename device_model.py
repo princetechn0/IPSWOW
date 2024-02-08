@@ -30,6 +30,7 @@ def add_data(url, name, firmware):
       db.session.commit()
       print("Added")
   except:
+    print(url, name, firmware)
     print("Add Device failed")
 
 def initializeDB(incoming_data):
