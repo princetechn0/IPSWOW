@@ -60,11 +60,6 @@ except (IndexError, KeyError):
 @ app.route("/home")
 def home():
     return { 'devices' : [{'name': 'iOS', 'data' : [*grouped_iPhones[::-1], *grouped_iPods[::-1]]}, {'name': 'iPadOS', 'data': grouped_iPads[::-1]}, {'name': 'MacOS/WatchOS', 'data': [*grouped_Macs, *grouped_Watches[::-1]]}], 'firmwares': latest_firmwares}
-    # return render_template('home.html', data=[column_headers, grouped_iPhones, grouped_iPads, grouped_Macs, grouped_iPods, grouped_Watches, latest_firmwares])
-
-# @ app.route("/presets")
-# def presets():
-#     return render_template('presets.html')
 
 @app.route("/getDeviceByName/<device_name>")
 def getDeviceByName(device_name):
