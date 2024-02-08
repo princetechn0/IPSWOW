@@ -32,8 +32,8 @@ def checkForUpdate():
         else:
             print("API up to date")
             print("Running App without Update")
-    except:
-        print("Check Hash Failed")
+    except Exception as e:
+        print(f"Check Hash Failed: {e}")
 
 
 def updateAll():  
